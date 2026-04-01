@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LPG Daily Entry</title>
+  <style>
+    body { font-family: Arial; background:#f4f6fb; padding:20px; }
+    .box { background:white; padding:20px; border-radius:10px; margin-bottom:15px; }
+    input, select { width:100%; padding:10px; margin:5px 0; }
+    button { width:100%; padding:12px; background:#2563eb; color:white; border:none; border-radius:8px; }
+  </style>
+</head>
+
+<body>
+
+<h2>Log Daily Transaction</h2>
+
+<div class="box">
+  <input type="date" id="date">
+  <input type="text" id="agency" placeholder="Agency Name">
+  <select id="omc">
+    <option>IOCL</option>
+    <option>BPCL</option>
+    <option>HPCL</option>
+  </select>
+</div>
+
+<div class="box">
+  <h4>Domestic</h4>
+  <input id="dom_rec" placeholder="Received">
+  <input id="dom_dis" placeholder="Distributed">
+</div>
+
+<div class="box">
+  <h4>Commercial</h4>
+  <input id="com_rec" placeholder="Received">
+  <input id="com_dis" placeholder="Distributed">
+</div>
+
+<div class="box">
+  <h4>Industrial</h4>
+  <input id="ind_rec" placeholder="Received">
+  <input id="ind_dis" placeholder="Distributed">
+</div>
+
+<div class="box">
+  <input id="stock" placeholder="Starting Stock">
+</div>
+
+<button onclick="submitData()">Submit</button>
+
+<script>
+async function submitData() {
+  const data = {
+    date: date.value,
+    agency: agency.value,
+    omc: omc.value,
+    dom_rec: dom_rec.value,
+    dom_dis: dom_dis.value,
+    com_rec: com_rec.value,
+    com_dis: com_dis.value,
+    ind_rec: ind_rec.value,
+    ind_dis: ind_dis.value,
+    stock: stock.value
+  };
+
+  await fetch("/submit", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify(data)
+  });
+
+  alert("Submitted!");
+}
+</script>
+
+</body>
+</html>
